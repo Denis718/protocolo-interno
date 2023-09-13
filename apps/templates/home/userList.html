@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Documento {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">Lista de usuários</h5>
+          </div>
+          <div class="card-body">
+              <label for="cars">Escolha um usuário:</label>
+              <select name="users">
+                {% for user in allusers %}
+                    <option key={{user.id}}>{{ user.username }}</option>
+                {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

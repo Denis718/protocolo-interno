@@ -1,0 +1,50 @@
+<!--nav-header-->
+<div class="row col-12">
+  <div class="col-4">
+    <form class="form-inline ml-auto" id="form" action="">
+      <div class="form-group no-border">
+        <input type="search" class="form-control" placeholder="Busca" name="search" autocomplete="off">
+        <button type="submit" class="btn btn-link btn-icon btn-round">
+          <i class="tim-icons icon-zoom-split"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="offset-6 col-1">
+    <div class="offset-5 bottom-menu">
+      <a href="#" class="bottom-menu" data-toggle="modal" data-target="#filterModal" id="filter">
+        <i class="fa fa-filter" style='font-size: 20px !important; padding-top: 8px' title="Filtrar"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-1">
+    <a href="#" class="bottom-menu" id="view">
+      <i class='fas fa-plus-circle fa-2x offset-11' style='padding-top: 8px;' title="Adicionar novo"></i>
+    </a>
+  </div>
+</div>
+
+{% include "includes/filter-modal.html" %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}
+    <script>
+      function load_view(){
+        let list = document.getElementById("list").dataset.url
+        let view = document.getElementById("nav-header").dataset.url
+
+        let hasFilter = document.getElementById("nav-header").dataset.filter == "true" ? true : false;
+        
+        if(hasFilter==false){
+          let filter = document.getElementById("filter");
+          filter.classList.add("d-none");
+        }
+
+        document.getElementById("form").action = list
+        document.getElementById("view").href = view
+
+      }
+
+      window.onload = load_view()
+    </script>
+  {% endblock javascripts %}

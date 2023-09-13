@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% crispy interessado_form interessado_form.helper %}
+
+{% block staticscss %}
+    <style>
+        #submit-id-submit {
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Cadastro de interessado</h5>
+              </div>
+              <div class="card-body">
+                <form method="POST" id="interessadoForm">{% csrf_token %}
+                  {{ form.as_p }}
+                  <div class="card-footer">
+                    <a href="{% url 'interessados_lista' %}">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </a>
+                    <button type="submit" class="btn btn-fill btn-primary">Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %}
+

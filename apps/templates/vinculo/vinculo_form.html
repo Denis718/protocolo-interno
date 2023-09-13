@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Cargo {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">Cadastro de Vínculos</h5>
+          </div>
+          <div class="card-body">
+            <form method="POST">{% csrf_token %}
+              <div class="form-row">
+                <div class="form-group col-md-8">
+                  <label for="inputNome">Servidor</label>
+                  {{ form.servidor }}
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputSigla">Matrícula</label>
+                  {{ form.matricula }}
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputTipo">Lotação</label>
+                  {{ form.lotacao }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputSituacao">Cargo</label>
+                  {{ form.cargo }}
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputSituacao">Data de início</label>
+                  {{ form.data_inicio }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputSituacao">Data de término</label>
+                  {{ form.data_fim }}
+                </div>
+              </div>
+              <div class="custom-control custom-switch">
+                {% comment %} <input type="checkbox" class="custom-control-input" id="customSwitch1" onclick="status_dtfim()" checked> {% endcomment %}
+                <label class="custom-control-label" for="customSwitch1">Situação</label>
+                {{ form.situacao }}
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'vinculo_list' %}">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </a>
+                <button type="submit" class="btn btn-fill btn-primary">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  <script>
+    function status_dtfim(){
+      let switchField = document.getElementById('dtfim')
+
+      if (switchField.hasAttribute("disabled")) {
+        switchField.removeAttribute('disabled');
+        switchField.required = true;
+      }
+      else {
+        switchField.disabled = true;
+      }
+    }
+  </script>
+{% endblock javascripts %}

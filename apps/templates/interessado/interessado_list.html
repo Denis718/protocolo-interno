@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Interessados {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+  <style>
+    .bg-purple {
+      background-color:#ddc7ea !important;
+      border-radius: 2px;
+    }
+  </style>
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="content" id="list" data-url="{% url 'interessados_lista' %}">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header" id="nav-header" data-url="{% url 'interessado_novo' %}" data-filter="false">
+            <h5 class="title">Cadastro de interessados</h5>
+          </div>
+          <div class="card-body">
+            {% include "includes/nav-header.html" %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Nome Social</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">CNPJ</th>
+                        <th scope="col">Data de Nascimento</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for interessado in interessados %}
+                        <tr>
+                            <td>{{ interessado.nome }}</td>
+                            <td>{{ interessado.nome_social }}</td>
+                            <td class="tdCpf">{{ interessado.cpf }}</td>
+                            <td class="tdCnpj">{{ interessado.cnpj }}</td>
+                            <td>{{ interessado.data_nascimento }}</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                                  <a href="{% url 'interessado_editar' pk=interessado.pk %}">
+                                    <i class="tim-icons icon-settings" title="Editar registro"></i>
+                                  </a>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
+                                  <a href="delete/" data-toggle="modal" data-target="#deleteModal" id="delete-item" onclick="delete_register('{{ interessado.pk }}')">
+                                    <i class="tim-icons icon-simple-remove" title="Excluir registro" ></i>
+                                  </a>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+        {% include "includes/pagination.html" %}
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/delete-modal.html" %}
+
+{% endblock content %}

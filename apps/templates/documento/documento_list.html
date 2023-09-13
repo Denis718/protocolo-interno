@@ -1,0 +1,74 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Documento {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+  <style>
+    .bg-purple {
+      background-color:#ddc7ea !important;
+      border-radius: 2px;
+    }
+  </style>
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="content" id="list" data-url="{% url 'document_list' %}">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header" id="nav-header" data-url="{% url 'document_new' %}" data-filter="true">
+            <h5 class="title">Cadastro de documentos</h5>
+          </div>
+          <div class="card-body">
+            {% include "includes/nav-header.html" %}
+            <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th class="text-center">Código</th>
+                      <th>Descrição</th>
+                      <th class="text-center">número e ano</th>
+                      <th class="text-center">Ações</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for documento in documentos %}
+                  <tr>
+                      <td class="text-center">{{ documento.codigo }}</td>
+                      <td>{{ documento.descricao }}</td>
+                      <td class="text-center">
+                        {% if documento.utiliza_num_ano %}
+                            sim
+                        {% else %}
+                            não
+                        {% endif %}
+                      </td>
+                      <td class="td-actions text-right">
+                          <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                            <a href="{% url 'document_edit' pk=documento.pk %}">
+                              <i class="tim-icons icon-settings" title="Editar registro"></i>
+                            </a>
+                          </button>
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
+                            <a href="delete/" data-toggle="modal" data-target="#deleteModal" id="delete-item" onclick="delete_register('{{ documento.pk }}')">
+                              <i class="tim-icons icon-simple-remove" title="Excluir registro" ></i>
+                            </a>
+                          </button>
+                      </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {% include "includes/pagination.html" %}
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/delete-modal.html" %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

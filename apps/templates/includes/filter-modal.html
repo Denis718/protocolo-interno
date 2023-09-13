@@ -1,0 +1,58 @@
+<!-- Modal confirm filter register -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filtro</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="tim-icons icon-simple-remove"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          Selecione os filtros
+        </div>
+        <form method="GET"
+        id="filter-form"
+        onsubmit="test();"
+        >
+          <div class="col-md-12">
+            {% comment %} <input type="filter" class="form-control col-6" placeholder="teste" name="teste">  {% endcomment %}
+            <label for="teste">Escolha os termos:</label>
+            {% comment %} <select class="form-control col-6" name="teste" id="teste">
+              <option value="silva">Silva</option>
+              <option value="teste">Teste</option>
+            </select> {% endcomment %}
+            <div class="input-group">
+              <input type="checkbox" id="item1" name="lista" value="silva">
+              <label for="item1">Silva</label><br>
+              <input type="checkbox" id="item2" name="lista" value="nunes">
+              <label for="item2">Nunes</label><br>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-info" id="filter-form">Filtrar</button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}
+    <script>
+      let test = () => {
+        let test = document.getElementsByName('lista');
+        let list = [];
+
+        test.forEach(item => {
+            if(item.checked){
+                list.push(item.value);
+            }
+        })
+        document.getElementsByName("lista").values=list
+        console.log(list);
+      }
+    </script>
+  {% endblock javascripts %}
